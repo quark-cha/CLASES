@@ -54,13 +54,22 @@ class LocalLinkedInTests(unittest.TestCase):
         linkedin.preparar_variantes(self.project, revisado=True)
         self.assertEqual(self.variant.read_bytes(), manual)
 
+    def test_suffix_without_underscore_is_recognized_and_does_not_duplicate_variant(self):
+        variant = self.project / 'ES_01_exampleLinkedIn.md'
+        variant.write_bytes(self.text)
+        items = linkedin.preparar_variantes(self.project)[2]
+        self.assertEqual([item[0] for item in items], [variant])
+        self.assertEqual(items[0][1], self.base)
+        self.assertFalse(self.variant.exists())
+
     def test_normal_publication_does_not_create_extra_variants(self):
         self.assertEqual(linkedin.preparar_variantes(self.project, crear=False)[2], [])
         self.assertFalse(self.variant.exists())
 
     def test_generated_variants_are_not_eligible_for_project_archive(self):
         for name in ['ES_01_example_linkedin.md', 'ES_01_example_LINKEDIN.pdf',
-                     'linkedin/ES_01_example.pdf', 'pdfs/ES_01_example_LinkedIn.html']:
+                     'linkedin/ES_01_example.pdf', 'pdfs/ES_01_example_LinkedIn.html', 'ES_01_examplelinkedin.md',
+                     'ES_01_example-LinkedIn.pdf', 'ES_01_example.LinkedIn.html']:
             self.assertFalse(empaquetado.eligible(name), name)
         self.assertTrue(empaquetado.eligible('ES_01_example.md'))
         self.assertTrue(empaquetado.eligible('src/linkedin.py'))

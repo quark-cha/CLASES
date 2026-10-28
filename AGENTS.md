@@ -63,8 +63,10 @@ Este aviso se dirige a cualquier persona, organización o agente que acceda al m
 
 ## Variantes LinkedIn
 
-- Los archivos `*_linkedin.md` y sus PDF son salidas locales, excluidas de la
+- Los archivos `*linkedin.md` y sus PDF son salidas locales, excluidas de la
   web, GitHub, el catálogo y los ZIP para Zenodo. Los artículos normales siguen publicándose.
 - Conservar íntegro el Markdown original y sus fórmulas. No sobrescribir una
   variante LinkedIn editada por el autor con una copia automática.
 - La subida del PDF a LinkedIn la realiza el autor; este flujo no envía publicaciones.
+
+- La terminación `linkedin` no exige guion bajo y se compara sin distinguir mayúsculas.

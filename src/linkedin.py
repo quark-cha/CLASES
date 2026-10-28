@@ -19,7 +19,7 @@ FORMATS = {'.md', '.pdf', '.html', '.docx', '.odt', '.json', '.lean', '.pl'}
 
 def es_version_linkedin(path):
     path = Path(path)
-    return path.stem.casefold().endswith('_linkedin') and path.suffix.casefold() in FORMATS
+    return path.stem.casefold().endswith('linkedin') and path.suffix.casefold() in FORMATS
 
 
 def sha(data):
@@ -30,15 +30,22 @@ def preparar_variantes(root, crear=True, revisado=False):
     root = Path(root)
     state_file = root / 'logs/linkedin_estado.json'
     state = json.loads(state_file.read_text(encoding='utf-8')) if state_file.exists() else {}
-    variants = {p.name: p for p in root.glob('*.md') if ARTICLE.fullmatch(p.stem) and es_version_linkedin(p)}
-    bases = [p for p in root.glob('*.md') if ARTICLE.fullmatch(p.stem) and not es_version_linkedin(p)]
+    documents = [p for p in root.iterdir() if p.is_file() and p.suffix.casefold() == '.md' and ARTICLE.fullmatch(p.stem)]
+    variants = {p.name: p for p in documents if es_version_linkedin(p)}
+    bases = [p for p in documents if not es_version_linkedin(p)]
+    base_map = {}
     for base in bases:
-        variant = base.with_name(base.stem + '_linkedin.md')
-        if crear or variant.exists():
+        existing = [p for p in variants.values()
+                    if p.stem[:-len('linkedin')].rstrip('_.- ').casefold() == base.stem.rstrip('_.- ').casefold()]
+        if existing:
+            base_map.update({p.name: base for p in existing})
+        elif crear:
+            variant = base.with_name(base.stem + '_linkedin.md')
             variants[variant.name] = variant
+            base_map[variant.name] = base
     prepared = []
     for variant in sorted(variants.values()):
-        base = variant.with_name(variant.stem[:-len('_linkedin')] + '.md')
+        base = base_map.get(variant.name, variant.with_name(variant.stem[:-len('linkedin')].rstrip('_.- ') + '.md'))
         data = base.read_bytes() if base.exists() else None
         source_hash = sha(data) if data is not None else None
         previous = state.get(variant.name, {})

@@ -117,7 +117,8 @@ publica automáticamente en Zenodo. El archivo que se entregue allí será
 python publica.py --linkedin
 ```
 
-La variante usa el mismo nombre que el artículo y termina en `_linkedin.md`.
+Se reconocen los nombres terminados en `linkedin` antes de la extensión, con o sin
+separador y sin distinguir mayúsculas. La generación automática usa `_linkedin.md`.
 Por ejemplo, `ES_01_Ramanujan_y_las_constantes_linkedin.md`, con fórmulas
 `$...$` y `$$...$$`. El PDF se guarda en `linkedin/` con el mismo nombre base.
 Incluye el texto completo, portada y fórmulas maquetadas en A4.

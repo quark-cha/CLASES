@@ -31,7 +31,7 @@ def eligible(name: str) -> bool:
     if any(part.casefold() in EXCLUDED_DIRS for part in path.parts[:-1]):
         return False
     filename = path.name.casefold()
-    if path.stem.casefold().endswith('_linkedin') and path.suffix.casefold() in {'.md', '.pdf', '.html', '.docx', '.odt', '.json', '.lean', '.pl'}:
+    if path.stem.casefold().endswith('linkedin') and path.suffix.casefold() in {'.md', '.pdf', '.html', '.docx', '.odt', '.json', '.lean', '.pl'}:
         return False
     if filename.startswith('.env') or filename in SECRET_NAMES:
         return False

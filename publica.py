@@ -188,7 +188,7 @@ def publicar_web(pdf_dir: Path):
 
     def sync_site(**options):
         publisher = WebPublisher(ftp, **options)
-        publisher.exclude_patterns.extend(['*_linkedin.*', '*_LINKEDIN.*', '*_LinkedIn.*'])
+        publisher.exclude_patterns.extend(['*linkedin.*', '*LINKEDIN.*', '*LinkedIn.*'])
         publisher.exclude_patterns.extend(p.name for p in Path(options['local_dir']).glob('*')
                                           if es_version_linkedin(p))
         return publisher.sync()
