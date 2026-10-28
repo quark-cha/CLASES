@@ -9,17 +9,19 @@ Hay fórmulas que permiten calcular. Otras, además, nos obligan a preguntar.
 
 La de Ramanujan para el inverso de π pertenece a ambas categorías:
 
-1/π = (2√2/9801) ∑ₖ₌₀∞ [(4k)!/(k!)⁴] · (1103 + 26390k)/396⁴ᵏ
+$$
+\frac{1}{\pi}=\frac{2\sqrt{2}}{9801}\sum_{k=0}^{\infty}\frac{(4k)!}{(k!)^4}\frac{1103+26390k}{396^{4k}}
+$$
 
-La suma comienza en k = 0 y continúa indefinidamente.
+La suma comienza en $k=0$ y continúa indefinidamente.
 
-No es una coincidencia decimal ni una aproximación convertida en igualdad. La serie converge exactamente a 1/π. Lo aproximado es el resultado cuando detenemos la suma después de un número finito de términos.
+No es una coincidencia decimal ni una aproximación convertida en igualdad. La serie converge exactamente a $1/\pi$. Lo aproximado es el resultado cuando detenemos la suma después de un número finito de términos.
 
 Su rapidez es extraordinaria: cada término aporta aproximadamente ocho cifras decimales correctas adicionales. Invirtiendo la suma parcial obtenemos una aproximación a π con esa misma rapidez asintótica.
 
 Conviene expresarlo con precisión: no existe una garantía general de que cada iteración fije exactamente ocho cifras nuevas. La ganancia asintótica es de unas 7,98 cifras por término. La exactitud pertenece a la identidad infinita.
 
-Pero mi interés no termina en calcular π.
+Pero mi interés no termina en calcular $\pi$.
 
 La pregunta es: ¿por qué aparecen precisamente esas constantes?
 
@@ -27,34 +29,54 @@ CUATRO CONSTANTES BAJO UNA MISMA SUMA
 
 Podemos escribir la estructura general así:
 
-F(a, b, c, d) = a ∑ₖ₌₀∞ [(4k)!/(k!)⁴] · (b + ck)/d⁴ᵏ
+$$
+F(a,b,c,d)=a\sum_{k=0}^{\infty}\frac{(4k)!}{(k!)^4}\frac{b+ck}{d^{4k}}
+$$
 
 En la fórmula de Ramanujan:
 
-a = 2√2/9801
-b = 1103
-c = 26390
-d = 396
+$$
+a=\frac{2\sqrt{2}}{9801}
+$$
+$$
+b=1103
+$$
+$$
+c=26390
+$$
+$$
+d=396
+$$
 
 Su factorización es:
 
-9801 = 99² = 3⁴ · 11²
+$$
+9801=99^2=3^4\cdot11^2
+$$
 
-a = 2√2/(3⁴ · 11²)
+$$
+a=\frac{2\sqrt{2}}{3^4\cdot11^2}
+$$
 
-b = 1103, número primo
+$b=1103$, número primo
 
-c = 26390 = 2 · 5 · 7 · 13 · 29
+$$
+c=26390=2\cdot5\cdot7\cdot13\cdot29
+$$
 
-d = 396 = 2² · 3² · 11 = 4 · 99
+$$
+d=396=2^2\cdot3^2\cdot11=4\cdot99
+$$
 
 Y, por tanto:
 
-d⁴ = 2⁸ · 3⁸ · 11⁴ = 256 · 99⁴
+$$
+d^4=2^8\cdot3^8\cdot11^4=256\cdot99^4
+$$
 
 Esta escritura ya muestra algo: 9801 y 396 comparten la estructura de 99. No son números desligados.
 
-También hay una redundancia en nuestra parametrización. La serie depende de los productos ab y ac. Multiplicar a por un número λ distinto de cero y dividir b y c por ese mismo λ deja cada término inalterado.
+También hay una redundancia en nuestra parametrización. La serie depende de los productos $ab$ y $ac$. Multiplicar $a$ por un número $\lambda$ distinto de cero y dividir $b$ y $c$ por ese mismo $\lambda$ deja cada término inalterado.
 
 Podemos elegir cuatro parámetros para definir una familia de series, pero eso no convierte los valores de Ramanujan en cuatro grados de libertad independientes dentro de la identidad.
 
@@ -62,13 +84,13 @@ Podemos elegir cuatro parámetros para definir una familia de series, pero eso n
 
 Factorizar permite reconocer componentes, pero todavía no explica su procedencia.
 
-Decir que 396 = 4 · 99 describe una relación. No explica de dónde sale 99.
+Decir que $396=4\cdot99$ describe una relación. No explica de dónde sale 99.
 
-Decir que a contiene √2 tampoco explica por qué aparece esa raíz.
+Decir que $a$ contiene $\sqrt{2}$ tampoco explica por qué aparece esa raíz.
 
-La pregunta de fondo es qué estructura produce simultáneamente los coeficientes y hace que su combinación converja exactamente a 1/π.
+La pregunta de fondo es qué estructura produce simultáneamente los coeficientes y hace que su combinación converja exactamente a $1/\pi$.
 
-Esa estructura se ha estudiado mediante funciones elípticas, ecuaciones modulares y valores algebraicos especiales. En esta fórmula interviene el caso modular N = 58.
+Esa estructura se ha estudiado mediante funciones elípticas, ecuaciones modulares y valores algebraicos especiales. En esta fórmula interviene el caso modular $N=58$.
 
 Podemos ver una parte concreta de esa conexión.
 
@@ -76,43 +98,61 @@ UNA MISMA RAÍZ ALGEBRAICA
 
 En la derivación aparece una cantidad:
 
-u = (5 + √29)/2
+$$
+u=\frac{5+\sqrt{29}}{2}
+$$
 
 Su sexta potencia es exactamente:
 
-u⁶ = 9801 + 1820√29
+$$
+u^6=9801+1820\sqrt{29}
+$$
 
 Como:
 
-9801² − 29 · 1820² = 1
+$$
+9801^2-29\cdot1820^2=1
+$$
 
 su inverso cumple:
 
-u⁻⁶ = 9801 − 1820√29
+$$
+u^{-6}=9801-1820\sqrt{29}
+$$
 
 Al sumar ambos desaparece la raíz:
 
-u⁶ + u⁻⁶ = 19602
+$$
+u^6+u^{-6}=19602
+$$
 
 Por tanto:
 
-x = 2/(u⁶ + u⁻⁶) = 1/9801 = 1/99²
+$$
+x=\frac{2}{u^6+u^{-6}}=\frac{1}{9801}=\frac{1}{99^2}
+$$
 
-En la serie transformada interviene x²:
+En la serie transformada interviene $x^2$:
 
-x² = 1/99⁴
+$$
+x^2=\frac{1}{99^4}
+$$
 
 La cuarta potencia de 99 surge así de una evaluación algebraica común.
 
 La conexión con los factoriales se ve en esta identidad:
 
-(4k)!/(k!)⁴ = 256ᵏ · (¼)ₖ(½)ₖ(¾)ₖ/(k!)³
+$$
+\frac{(4k)!}{(k!)^4}=256^k\frac{\left(\frac14\right)_k\left(\frac12\right)_k\left(\frac34\right)_k}{(k!)^3}
+$$
 
-Aquí (r)ₖ representa el producto ascendente r(r + 1)…(r + k − 1), y (r)₀ = 1.
+Aquí $(r)_k$ representa el producto ascendente $r(r+1)\cdots(r+k-1)$, y $(r)_0=1$.
 
-El factor 256ᵏ se combina con el denominador:
+El factor $256^k$ se combina con el denominador:
 
-256ᵏ/396⁴ᵏ = (1/99⁴)ᵏ
+$$
+\frac{256^k}{396^{4k}}=\left(\frac{1}{99^4}\right)^k
+$$
 
 No hemos escogido una cuarta potencia por conveniencia: aparece al transformar la estructura de la serie.
 
@@ -120,41 +160,51 @@ LA RAÍZ DE DOS Y EL COEFICIENTE 26390
 
 La diferencia de las dos potencias anteriores conserva la raíz:
 
-(u⁶ − u⁻⁶)/2 = 1820√29
+$$
+\frac{u^6-u^{-6}}{2}=1820\sqrt{29}
+$$
 
-Al combinarla con √58:
+Al combinarla con $\sqrt{58}$:
 
-√58 · 1820√29 = 1820 · 29√2
+$$
+\sqrt{58}\cdot1820\sqrt{29}=1820\cdot29\sqrt{2}
+$$
 
 Y, exactamente:
 
-1820 · 29√2 = 2√2 · 26390
+$$
+1820\cdot29\sqrt{2}=2\sqrt{2}\cdot26390
+$$
 
-Aquí aparecen unidos √2 y 26390.
+Aquí aparecen unidos $\sqrt{2}$ y $26390$.
 
 También el coeficiente 1103 resulta de una cancelación exacta en otra evaluación elíptica:
 
-[297(33√29 − 148) − √29(9801 − 1820√29)]/(2√2)
+$$
+\frac{297(33\sqrt{29}-148)-\sqrt{29}(9801-1820\sqrt{29})}{2\sqrt{2}}
+$$
 
-Como 297 · 33 = 9801, los términos con √29 se cancelan. Queda:
+Como $297\cdot33=9801$, los términos con $\sqrt{29}$ se cancelan. Queda:
 
-(−43956 + 52780)/(2√2)
-= 8824/(2√2)
-= 2√2 · 1103
+$$
+\frac{-43956+52780}{2\sqrt{2}}=\frac{8824}{2\sqrt{2}}=2\sqrt{2}\cdot1103
+$$
 
 Estos cálculos muestran cómo emergen las constantes a partir de valores comunes. La demostración completa debe justificar también las evaluaciones elípticas de partida.
 
-¿DÓNDE ESTÁ π?
+¿DÓNDE ESTÁ $\pi$?
 
 El puente incluye la relación de Legendre:
 
-K E′ + E K′ − K K′ = π/2
+$$
+K E^{\prime}+E K^{\prime}-K K^{\prime}=\frac{\pi}{2}
+$$
 
-K y E son integrales elípticas completas. Aquí las primas indican las integrales correspondientes al módulo complementario; no representan derivadas.
+$K$ y $E$ son integrales elípticas completas. Aquí las primas indican las integrales correspondientes al módulo complementario; no representan derivadas.
 
-Las transformaciones de estas relaciones en series permiten obtener 1/π.
+Las transformaciones de estas relaciones en series permiten obtener $1/\pi$.
 
-Así se enlazan una identidad analítica que contiene π y unas evaluaciones algebraicas que producen enteros y radicales.
+Así se enlazan una identidad analítica que contiene $\pi$ y unas evaluaciones algebraicas que producen enteros y radicales.
 
 GRUPOS, TRANSFORMACIONES E INVARIANTES
 
@@ -162,9 +212,11 @@ La teoría de grupos interviene porque distintas descripciones pueden representa
 
 En el contexto modular aparecen transformaciones:
 
-τ → (pτ + q)/(rτ + s)
+$$
+\tau\longmapsto\frac{p\tau+q}{r\tau+s}
+$$
 
-con p, q, r y s enteros y ps − qr = 1.
+con $p$, $q$, $r$ y $s$ enteros y $ps-qr=1$.
 
 Utilizo letras distintas para no confundirlas con los cuatro parámetros de la serie.
 
@@ -233,7 +285,7 @@ REFERENCIAS
 S. Ramanujan. Modular equations and approximations to π. Quarterly Journal of Mathematics, 45, 350–372, 1914.
 https://ramanujan.sirinudi.org/Volumes/published/ram06.html
 
-Chieh-Lei Wong. On the elegance of Ramanujan’s series for π, 2021. Especialmente el caso N = 58.
+Chieh-Lei Wong. On the elegance of Ramanujan’s series for π, 2021. Especialmente el caso $N=58$.
 https://arxiv.org/abs/2104.12412
 
 Thang Pang Ern y Devandhira Wijaya Wangsa. A Proof of Ramanujan’s Classic π Formula, 2024.

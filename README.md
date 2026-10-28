@@ -8,7 +8,7 @@ Proyecto de Víctor Estrada Díaz, basado en las clases de UNIHOLOG, para estudi
 
 [Ramanujan, π y la estructura que relaciona las constantes](ES_01_Ramanujan_y_las_constantes.md).
 
-Artículo de Víctor Estrada Díaz preparado para CLASES. Fórmulas en Unicode, sin LaTeX, para el artículo de LinkedIn. Se conservan el contenido, las referencias y la licencia del autor. Su incorporación al proyecto no constituye una revisión científica nueva.
+Artículo de Víctor Estrada Díaz preparado para CLASES. Fórmulas en LaTeX, con `$...$` en línea y `$$...$$` en bloque para su representación en Markdown. Se conservan el contenido, las referencias y la licencia del autor. Su incorporación al proyecto no constituye una revisión científica nueva.
 
 ## Publicación
 
