@@ -17,3 +17,20 @@ Thumbs.db
 
 /zenodo/
 /hashes*.json
+
+/linkedin/
+*_linkedin.md
+*_linkedin.pdf
+*_linkedin.html
+*_linkedin.docx
+*_linkedin.odt
+
+# Variantes LinkedIn locales, también con mayúsculas.
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[mM][dD]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[pP][dD][fF]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[hH][tT][mM][lL]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[dD][oO][cC][xX]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[oO][dD][tT]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[jJ][sS][oO][nN]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[lL][eE][aA][nN]
+*_[lL][iI][nN][kK][eE][dD][iI][nN].[pP][lL]

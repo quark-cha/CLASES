@@ -18,6 +18,7 @@ REPO_ROOT = PROJECT_DIR.parent
 PUBLICAR_DIR = REPO_ROOT / "PUBLICAR"
 SRC_DIR = PROJECT_DIR / 'src'
 sys.path.insert(0, str(SRC_DIR))
+from linkedin import es_version_linkedin
 
 if str(PUBLICAR_DIR) not in sys.path:
     sys.path.insert(0, str(PUBLICAR_DIR))
@@ -90,6 +91,8 @@ def generar_catalogo_cat(md_objects) -> Path:
     rows = {}
     for md_obj in md_objects:
         md_path = Path(md_obj.fichero)
+        if es_version_linkedin(md_path):
+            continue
         parsed = parse_doc_id(md_path.stem)
         if not parsed:
             continue
@@ -182,61 +185,75 @@ def publicar_web(pdf_dir: Path):
     comprobar_version(PROJECT_DIR, metadata)
 
     from PackPublica.FTPClient import FTPClient
+
+    def sync_site(**options):
+        publisher = WebPublisher(ftp, **options)
+        publisher.exclude_patterns.extend(['*_linkedin.*', '*_LINKEDIN.*', '*_LinkedIn.*'])
+        publisher.exclude_patterns.extend(p.name for p in Path(options['local_dir']).glob('*')
+                                          if es_version_linkedin(p))
+        return publisher.sync()
     from PackPublica.WebPublisher import WebPublisher
 
     ftp = FTPClient()
 
-    WebPublisher(
-        ftp,
+    sync_site(
         local_dir=pdf_dir,
         remote_dir=REMOTE_DIR,
         extensions={".pdf", ".php", ".html", ".csv", ".cat", ".abstract", ".png", ".zip"},
-    ).sync()
+    )
 
-    WebPublisher(
-        ftp,
+    sync_site(
         local_dir=PROJECT_DIR,
         remote_dir=REMOTE_DIR + "/md",
-    ).sync()
+    )
 
     fuentes_dir = pdf_dir / 'fuentes'
     if fuentes_dir.is_dir():
-        WebPublisher(ftp, local_dir=fuentes_dir, remote_dir=REMOTE_DIR + '/fuentes',
-                     extensions={'.md', '.json'}).sync()
+        sync_site(local_dir=fuentes_dir, remote_dir=REMOTE_DIR + '/fuentes',
+                     extensions={'.md', '.json'})
 
     json_dir = PROJECT_DIR / "json"
     if json_dir.is_dir():
-        WebPublisher(
-            ftp,
+        sync_site(
             local_dir=json_dir,
             remote_dir=REMOTE_DIR + "/json",
             extensions={".json"},
-        ).sync()
+        )
 
     lean_dir = PROJECT_DIR / "lean"
     if lean_dir.is_dir():
-        WebPublisher(
-            ftp,
+        sync_site(
             local_dir=lean_dir,
             remote_dir=REMOTE_DIR + "/lean",
             extensions={".lean"},
-        ).sync()
+        )
 
 
 def main():
     global PUBLICAR_WEB
     parser = argparse.ArgumentParser(description='Preparar y publicar CLASES')
     mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--linkedin', action='store_true', help='Generar versiones y PDF locales para LinkedIn, sin publicar')
     mode.add_argument('--web', action='store_true', help='Subir los resultados a la web del autor')
     mode.add_argument('--solo-zip', action='store_true', help='Preparar únicamente el ZIP local, sin publicar')
     mode.add_argument('--preparar-web', action='store_true', help='Preparar ZIP y página web local sin convertir documentos ni subir archivos')
+    parser.add_argument('--revisado', action='store_true', help='Confirmar que se revisó la edición propia de LinkedIn frente al artículo base cambiado')
     args = parser.parse_args()
+    if args.revisado and not args.linkedin:
+        parser.error('--revisado solo se utiliza junto a --linkedin')
     if args.solo_zip and (args.web or args.preparar_web):
         parser.error('--solo-zip no se combina con opciones web')
     PUBLICAR_WEB = args.web
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, 'reconfigure'):
             stream.reconfigure(encoding='utf-8')
+    if args.linkedin:
+        from PackPublica.publicar import Publicar
+        from linkedin import generar_linkedin
+        os.chdir(PROJECT_DIR)
+        generar_linkedin(PROJECT_DIR, Publicar(__file__), crear=True, revisado=args.revisado)
+        return
+
     from empaquetado import preparar_paquete, preparar_web
     from fuentes import verify
 
@@ -254,9 +271,11 @@ def main():
         from PackPublica.publicar import Publicar
         publica = Publicar(__file__)
         publica.FORZADO = False
-        md_objects = [publica.test(path.stem) for path in sorted(PROJECT_DIR.glob('*.md')) if parse_doc_id(path.stem)]
+        md_objects = [publica.test(path.stem) for path in sorted(PROJECT_DIR.glob('*.md')) if parse_doc_id(path.stem) and not es_version_linkedin(path)]
         generar_catalogo_cat(md_objects)
         generar_derivados(md_objects)
+        from linkedin import generar_linkedin
+        generar_linkedin(PROJECT_DIR, publica, crear=False)
 
     pdf_dir = asegurar_pdfs_publicables()
     copiar_web_base_a_pdfs(pdf_dir)

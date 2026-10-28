@@ -18,7 +18,7 @@ EXCLUDED_DIRS = {
     '.git', '.ssh', '.aws', '.azure', '.gnupg', '.kube', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache',
     '.venv', 'venv', 'node_modules', 'logs', 'tmp', 'temp', 'backups',
     'backup', 'bck', 'old', 'sav', 'anterior', 'historial', 'respaldos',
-    'zenodo', 'dist', 'build',
+    'zenodo', 'dist', 'build', 'linkedin',
 }
 SECRET_NAMES = {'id_rsa', 'id_dsa', 'id_ecdsa', 'id_ed25519', '.git-credentials', 'credentials', '.netrc', '.npmrc', '.pypirc', 'credentials.json', 'credentials.txt',
                 'secrets.json', 'secrets.yaml', 'secrets.yml', 'token.txt', 'tokens.txt'}
@@ -31,6 +31,8 @@ def eligible(name: str) -> bool:
     if any(part.casefold() in EXCLUDED_DIRS for part in path.parts[:-1]):
         return False
     filename = path.name.casefold()
+    if path.stem.casefold().endswith('_linkedin') and path.suffix.casefold() in {'.md', '.pdf', '.html', '.docx', '.odt', '.json', '.lean', '.pl'}:
+        return False
     if filename.startswith('.env') or filename in SECRET_NAMES:
         return False
     if path.suffix.casefold() in {'.pem', '.key', '.p12', '.pfx', '.kdbx', '.keystore', '.pyc', '.pyo', '.tmp'}:

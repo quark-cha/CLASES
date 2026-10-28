@@ -109,3 +109,29 @@ Una generación fallida detiene la subida para evitar publicar derivados antiguo
 **Zenodo:** este cambio prepara el ZIP; no crea depósitos, no reserva DOI y no
 publica automáticamente en Zenodo. El archivo que se entregue allí será
 únicamente `CLASES.zip`, con todos los metadatos de versión dentro de él.
+
+
+## Artículos para LinkedIn: generación exclusivamente local
+
+```powershell
+python publica.py --linkedin
+```
+
+La variante usa el mismo nombre que el artículo y termina en `_linkedin.md`.
+Por ejemplo, `ES_01_Ramanujan_y_las_constantes_linkedin.md`, con fórmulas
+`$...$` y `$$...$$`. El PDF se guarda en `linkedin/` con el mismo nombre base.
+Incluye el texto completo, portada y fórmulas maquetadas en A4.
+
+Las variantes LinkedIn y sus PDF quedan excluidos del catálogo web, GitHub y
+el ZIP de Zenodo. Los artículos normales mantienen su publicación habitual.
+El PDF se sube manualmente a LinkedIn como documento; el programa no publica
+ni envía nada a LinkedIn. Las ejecuciones normales también actualizan las
+variantes que ya existan, sin crear una versión social de cada documento nuevo.
+
+La primera variante es una copia exacta del Markdown normal. Si se conserva
+sin ediciones propias, se actualiza cuando cambia el artículo base. Si tiene
+una edición propia y cambia el base, el programa se detiene para revisar ambas
+versiones, sin sobrescribir el texto del autor.
+
+Después de revisar manualmente una discrepancia, `python publica.py --linkedin --revisado`
+confirma la revisión del autor y conserva su variante, sin sustituirla.

@@ -48,3 +48,12 @@ python publica.py --web
 La copia en `pdfs/` y la de `zenodo/` son idénticas y atienden a dos destinos;
 no son versiones distintas. Solo `--web` ejecuta FTP mediante PUBLICAR y verifica
 los archivos remotos. Un fallo de generación impide continuar con la subida.
+
+
+## LinkedIn local
+
+`linkedin.py` crea variantes `_linkedin.md` y sus PDF A4 mediante el PUBLICAR
+vecino. Ejecutar `python publica.py --linkedin`. No requiere Git limpio, no
+prepara paquetes y no conecta con FTP, GitHub, Zenodo ni LinkedIn.
+Las variantes mantienen la fórmula y el contenido completos; las ediciones
+propias se protegen frente a actualizaciones automáticas del artículo base.
