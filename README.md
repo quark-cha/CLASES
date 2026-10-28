@@ -8,7 +8,7 @@ Proyecto de Víctor Estrada Díaz, basado en las clases de UNIHOLOG, para estudi
 
 [Ramanujan, π y la estructura que relaciona las constantes](ES_01_Ramanujan_y_las_constantes.md).
 
-Texto completo recuperado de la conversación «Exactitud fórmula Ramanujan pi», con las modificaciones acordadas para CLASES. Fórmulas en Unicode, sin LaTeX, para preparar el artículo de LinkedIn. Se conserva el contenido, las referencias y la licencia del borrador original; esta recuperación no constituye una revisión científica nueva.
+Artículo de Víctor Estrada Díaz preparado para CLASES. Fórmulas en Unicode, sin LaTeX, para el artículo de LinkedIn. Se conservan el contenido, las referencias y la licencia del autor. Su incorporación al proyecto no constituye una revisión científica nueva.
 
 ## Publicación
 
@@ -34,9 +34,8 @@ Precisar las clases de UNIHOLOG que se estudiarán, sus elementos y operaciones;
 
 ## Procedencia
 
-Conversación original: «Exactitud fórmula Ramanujan pi».
-Identificador: 6adcd9c9-c950-83eb-80b0-2aaa0a5bb538.
-Recuperación local: 25 de octubre de 2026.
+Artículo inicial conservado en el proyecto local CLASES desde el 25 de octubre de 2026.
+La procedencia y las huellas de las fuentes de UNIHOLOG están documentadas en su manifiesto.
 
 
 ## Fuentes actuales recuperadas de UNIHOLOG
