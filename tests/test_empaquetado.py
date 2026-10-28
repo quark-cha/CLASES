@@ -97,6 +97,18 @@ class PackageTests(unittest.TestCase):
         self.assertIn(metadata['commit'][:12], text)
         self.assertEqual((page.parent / 'CLASES.zip').read_bytes(), package.read_bytes())
 
+    def test_source_links_have_exact_local_copies_from_same_zip(self):
+        self.put('documentos/UNIHOLOG/ES_49_clases.md', '# Clases $U_c$\r\n')
+        self.put('documentos/UNIHOLOG/manifest.json', json.dumps({'documents': [{'file': 'ES_49_clases.md'}]}))
+        self.run_git('add', 'documentos')
+        self.run_git('commit', '-m', 'source fixture')
+        package, metadata = empaquetado.preparar_paquete(self.project)
+        page = empaquetado.preparar_web(self.project, package, metadata)
+        self.assertIn('fuentes/ES_49_clases.md', page.read_text(encoding='utf-8'))
+        with zipfile.ZipFile(package) as archive:
+            self.assertEqual((page.parent / 'fuentes/ES_49_clases.md').read_bytes(),
+                             archive.read('CLASES/documentos/UNIHOLOG/ES_49_clases.md'))
+
 
 class PublicationTests(unittest.TestCase):
     def setUp(self):
@@ -113,7 +125,7 @@ class PublicationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT) as directory:
             root = Path(directory)
             (root / 'pdfs').mkdir()
-            (root / 'documentos/UNIHOLOG').mkdir(parents=True)
+            (root / 'pdfs/fuentes').mkdir(parents=True)
             package = root / 'pdfs/CLASES.zip'
             package.write_bytes(b'fixture')
             with patch.dict(sys.modules, {'PackPublica': types.ModuleType('PackPublica'),

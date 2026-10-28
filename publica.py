@@ -199,7 +199,7 @@ def publicar_web(pdf_dir: Path):
         remote_dir=REMOTE_DIR + "/md",
     ).sync()
 
-    fuentes_dir = PROJECT_DIR / 'documentos' / 'UNIHOLOG'
+    fuentes_dir = pdf_dir / 'fuentes'
     if fuentes_dir.is_dir():
         WebPublisher(ftp, local_dir=fuentes_dir, remote_dir=REMOTE_DIR + '/fuentes',
                      extensions={'.md', '.json'}).sync()

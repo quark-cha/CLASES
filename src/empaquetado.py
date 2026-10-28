@@ -152,17 +152,28 @@ def preparar_web(root: Path, package: Path, metadata):
     comprobar_version(root, metadata)
     destination = root / 'pdfs'
     _write_current(destination / 'CLASES.zip', package.read_bytes())
-    image = root / 'img/CLASES_mundo_matematico.png'
-    if image.exists():
-        _write_current(destination / image.name, image.read_bytes())
     sources = []
-    manifest = root / 'documentos/UNIHOLOG/manifest.json'
-    if manifest.exists():
-        for item in json.loads(manifest.read_text(encoding='utf-8'))['documents']:
-            name = item['file']
-            from urllib.parse import quote
-            sources.append(f'<li><a href="fuentes/{quote(name)}">{html.escape(name)}</a></li>')
-    hero = '<img class="cover" src="CLASES_mundo_matematico.png" alt="Montañero explorando un paisaje matemático con montañas fractales">' if image.exists() else ''
+    with zipfile.ZipFile(package) as archive:
+        members = set(archive.namelist())
+        cover = 'CLASES/img/CLASES_mundo_matematico.png'
+        has_cover = cover in members
+        if has_cover:
+            _write_current(destination / 'CLASES_mundo_matematico.png', archive.read(cover))
+        manifest = 'CLASES/documentos/UNIHOLOG/manifest.json'
+        if manifest in members:
+            manifest_bytes = archive.read(manifest)
+            _write_current(destination / 'fuentes/manifest.json', manifest_bytes)
+            for item in json.loads(manifest_bytes)['documents']:
+                name = item['file']
+                if PurePosixPath(name).name != name or not eligible(name):
+                    raise ValueError('Nombre de fuente no admisible en el manifiesto')
+                from urllib.parse import quote
+                data = archive.read('CLASES/documentos/UNIHOLOG/' + name)
+                if item.get('sha256') and sha(data) != item['sha256']:
+                    raise ValueError('La fuente web no coincide con su manifiesto: ' + name)
+                _write_current(destination / 'fuentes' / name, data)
+                sources.append(f'<li><a href="fuentes/{quote(name)}">{html.escape(name)}</a></li>')
+    hero = '<img class="cover" src="CLASES_mundo_matematico.png" alt="Montañero explorando un paisaje matemático con montañas fractales">' if has_cover else ''
     document = '''<!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>CLASES · Víctor Estrada Díaz</title>
 <style>body{margin:0;background:#f4f6f8;color:#182b3c;font:18px/1.6 system-ui,sans-serif}
