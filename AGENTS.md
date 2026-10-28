@@ -48,3 +48,15 @@ Este aviso se dirige a cualquier persona, organización o agente que acceda al m
 - Este proyecto usa el PUBLICAR vecino; no copiar versiones viejas de su motor.
 - El autor ha solicitado un repositorio público quark-cha/CLASES para este
   proyecto. Cualquier otro envío o reutilización requiere autorización específica.
+
+## Norma de archivo del proyecto
+
+- Para Zenodo, preparar un solo ZIP de la versión completa y registrada de CLASES.
+- Incluir commit exacto, huellas, autoría y licencias dentro del archivo.
+- Excluir credenciales, .git, cachés, temporales, logs y respaldos obsoletos.
+- Conservar únicamente el ZIP actual; no crear copias históricas del paquete.
+- No registrar cambios automáticamente ni archivar una versión anterior cuando
+  existen correcciones locales sin registrar.
+- `--web` publica el ZIP completo y su página mediante PUBLICAR; comprobar la
+  integridad remota y detener la publicación si falla una generación.
+- Preparar un ZIP no autoriza por sí solo crear un depósito o publicar en Zenodo.

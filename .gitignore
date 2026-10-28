@@ -14,3 +14,6 @@ prolog/
 *.tmp
 .DS_Store
 Thumbs.db
+
+/zenodo/
+/hashes*.json

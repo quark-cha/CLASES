@@ -69,3 +69,43 @@ Concepto visual: Víctor Estrada Díaz. Portada generada por IA a partir de ese 
 ## Licencias
 
 [Autoría, licencias y condiciones de uso](LICENCIAS.md).
+
+
+## Archivo completo para Zenodo y publicación web
+
+`publica.py` prepara un único archivo `zenodo/CLASES.zip` con la versión
+registrada del proyecto: código, documentos, portada, pruebas e instrucciones.
+Dentro del ZIP, `CLASES/VERSION_ARCHIVO.json` identifica el commit exacto y
+las huellas de todos sus archivos. El paquete conserva las licencias y la autoría.
+
+Se excluyen `.git`, credenciales, cachés, temporales, logs y respaldos antiguos.
+La carpeta `zenodo/` tampoco se introduce dentro de su propio archivo. Solo hay
+un ZIP actual: una versión nueva sustituye el anterior; una versión idéntica no
+reescribe el archivo. Si hay cambios sin registrar, el programa se detiene para
+no archivar una copia anterior como si fuera la actual. El programa no hace
+commits automáticamente.
+
+```powershell
+# Solo ZIP local: sin conversores, FTP ni llamadas a Zenodo
+python publica.py --solo-zip
+
+# ZIP y página local, sin convertir documentos ni subir archivos
+python publica.py --preparar-web
+
+# Generación local de documentos, ZIP y página del proyecto
+python publica.py
+
+# Generar y publicar el proyecto en la web del autor
+python publica.py --web
+```
+
+Con `--web`, PUBLICAR verifica la copia remota del ZIP, la página del proyecto,
+el catálogo de artículos, la portada y las fuentes de UNIHOLOG. La página
+`proyecto.html` enlaza el ZIP, GitHub y los artículos. El catálogo `index.php`
+incluye un acceso visible al proyecto y a la descarga completa.
+Destino configurado: `https://estradad.es/teorias/pdf/CLASES/`.
+Una generación fallida detiene la subida para evitar publicar derivados antiguos.
+
+**Zenodo:** este cambio prepara el ZIP; no crea depósitos, no reserva DOI y no
+publica automáticamente en Zenodo. El archivo que se entregue allí será
+únicamente `CLASES.zip`, con todos los metadatos de versión dentro de él.

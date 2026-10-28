@@ -870,6 +870,17 @@ h1{font-size:30px;line-height:1.15;margin:0 0 14px}
 <body id="top">
 <main class="wrap">
     <h1><?php echo h($project_name); ?></h1>
+    <?php if (is_file(__DIR__ . '/proyecto.html')): ?>
+    <section class="card" style="margin-bottom:18px" aria-label="Proyecto CLASES">
+        <h2>Proyecto CLASES</h2>
+        <p>Investigación de Víctor Estrada Díaz sobre clases, transformaciones e invariantes.</p>
+        <div class="actions">
+            <a class="button" href="proyecto.html">Explorar el proyecto</a>
+            <a class="button" href="CLASES.zip" download>Descargar proyecto completo (ZIP)</a>
+            <a class="lang" href="https://github.com/quark-cha/CLASES">GitHub</a>
+        </div>
+    </section>
+    <?php endif; ?>
 
     <nav class="topbar" aria-label="Navigation">
         <a href="https://estradad.es"><?php echo h(menu_text($menu, 'home', $idioma)); ?></a>

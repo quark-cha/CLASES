@@ -2,8 +2,8 @@
 # CLASES/publica.py
 #
 # Publicacion local/web del proyecto CLASES.
-# No usa Zenodo. Genera derivados verificables (.json y .lean), prepara
-# catalogo.cat. La opción --web publica la interfaz web del proyecto.
+# Prepara un ZIP local de la versión completa para Zenodo, sin subirlo.
+# La opción --web publica el proyecto y el catálogo en la web del autor.
 
 import argparse
 import csv
@@ -16,6 +16,8 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = PROJECT_DIR.parent
 PUBLICAR_DIR = REPO_ROOT / "PUBLICAR"
+SRC_DIR = PROJECT_DIR / 'src'
+sys.path.insert(0, str(SRC_DIR))
 
 if str(PUBLICAR_DIR) not in sys.path:
     sys.path.insert(0, str(PUBLICAR_DIR))
@@ -116,21 +118,9 @@ def generar_catalogo_cat(md_objects) -> Path:
 def asegurar_pdfs_publicables():
     """Mantiene PROJECT_DIR/pdfs como carpeta unica de publicacion web."""
     destino = PROJECT_DIR / "pdfs"
-    fuente = PROJECT_DIR / "tools" / "pdfs"
     destino.mkdir(parents=True, exist_ok=True)
-
-    if not fuente.is_dir():
-        return destino
-
-    copiados = 0
-    for src in sorted(fuente.glob("*.pdf")):
-        dst = destino / src.name
-        if (not dst.exists()) or src.stat().st_mtime > dst.stat().st_mtime:
-            shutil.copy2(src, dst)
-            copiados += 1
-    if copiados:
-        print(f"[PDF] Copiados/actualizados desde tools/pdfs: {copiados}")
     return destino
+
 
 
 def copiar_web_base_a_pdfs(pdf_dir: Path):
@@ -147,6 +137,7 @@ def copiar_web_base_a_pdfs(pdf_dir: Path):
 
 
 def generar_derivados(md_objects):
+    fallidos = []
     for md_obj in md_objects:
         nombre = Path(md_obj.fichero).name
         try:
@@ -161,6 +152,7 @@ def generar_derivados(md_objects):
             hechos = [k for k, v in resultados.items() if v]
             print(f"[OK] {nombre}: {', '.join(hechos) if hechos else 'sin cambios'}")
         except Exception as exc:
+            fallidos.append(nombre)
             print(f"[WARN] fallo generando derivados completos para {nombre}: {exc}")
             if GENERAR_JSON or GENERAR_LEAN:
                 try:
@@ -176,11 +168,18 @@ def generar_derivados(md_objects):
                 except Exception as exc2:
                     print(f"[ERROR] {nombre}: tampoco se pudo generar json/lean: {exc2}")
 
+    if fallidos:
+        raise RuntimeError('Publicación detenida: generación incompleta de ' + ', '.join(fallidos))
+
 
 def publicar_web(pdf_dir: Path):
     if not PUBLICAR_WEB:
         print("[WEB] PUBLICAR_WEB = False")
         return
+
+    from empaquetado import verify_package, comprobar_version
+    metadata = verify_package(pdf_dir / 'CLASES.zip')
+    comprobar_version(PROJECT_DIR, metadata)
 
     from PackPublica.FTPClient import FTPClient
     from PackPublica.WebPublisher import WebPublisher
@@ -191,7 +190,7 @@ def publicar_web(pdf_dir: Path):
         ftp,
         local_dir=pdf_dir,
         remote_dir=REMOTE_DIR,
-        extensions={".pdf", ".php", ".csv", ".cat", ".abstract", ".png"},
+        extensions={".pdf", ".php", ".html", ".csv", ".cat", ".abstract", ".png", ".zip"},
     ).sync()
 
     WebPublisher(
@@ -199,6 +198,11 @@ def publicar_web(pdf_dir: Path):
         local_dir=PROJECT_DIR,
         remote_dir=REMOTE_DIR + "/md",
     ).sync()
+
+    fuentes_dir = PROJECT_DIR / 'documentos' / 'UNIHOLOG'
+    if fuentes_dir.is_dir():
+        WebPublisher(ftp, local_dir=fuentes_dir, remote_dir=REMOTE_DIR + '/fuentes',
+                     extensions={'.md', '.json'}).sync()
 
     json_dir = PROJECT_DIR / "json"
     if json_dir.is_dir():
@@ -222,32 +226,46 @@ def publicar_web(pdf_dir: Path):
 def main():
     global PUBLICAR_WEB
     parser = argparse.ArgumentParser(description='Preparar y publicar CLASES')
-    parser.add_argument('--web', action='store_true', help='Subir los resultados a la web del autor')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--web', action='store_true', help='Subir los resultados a la web del autor')
+    mode.add_argument('--solo-zip', action='store_true', help='Preparar únicamente el ZIP local, sin publicar')
+    mode.add_argument('--preparar-web', action='store_true', help='Preparar ZIP y página web local sin convertir documentos ni subir archivos')
     args = parser.parse_args()
+    if args.solo_zip and (args.web or args.preparar_web):
+        parser.error('--solo-zip no se combina con opciones web')
     PUBLICAR_WEB = args.web
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, 'reconfigure'):
             stream.reconfigure(encoding='utf-8')
-    from PackPublica.publicar import Publicar
+    from empaquetado import preparar_paquete, preparar_web
+    from fuentes import verify
 
     os.chdir(PROJECT_DIR)
-    print("CLASES: PUBLICAR sin Zenodo")
-    print(f"Proyecto: {PROJECT_DIR}")
+    print('CLASES: proyecto completo, ZIP local para Zenodo y web opcional')
+    if (PROJECT_DIR / 'documentos/UNIHOLOG/manifest.json').is_file():
+        source = PROJECT_DIR.parent / 'UNIHOLOG'
+        verify(PROJECT_DIR, source if source.is_dir() else None)
+    package, metadata = preparar_paquete(PROJECT_DIR)
+    print(f'[ZIP] {package} · versión {metadata["commit"][:12]} · {len(metadata["files"])} archivos')
+    if args.solo_zip:
+        return
 
-    publica = Publicar(__file__)
-    publica.FORZADO = False
-    md_objects = [publica.test(path.stem) for path in sorted(PROJECT_DIR.glob('*.md')) if parse_doc_id(path.stem)]
-
-    generar_catalogo_cat(md_objects)
-    generar_derivados(md_objects)
+    if not args.preparar_web:
+        from PackPublica.publicar import Publicar
+        publica = Publicar(__file__)
+        publica.FORZADO = False
+        md_objects = [publica.test(path.stem) for path in sorted(PROJECT_DIR.glob('*.md')) if parse_doc_id(path.stem)]
+        generar_catalogo_cat(md_objects)
+        generar_derivados(md_objects)
 
     pdf_dir = asegurar_pdfs_publicables()
     copiar_web_base_a_pdfs(pdf_dir)
-    shutil.copy2(PROJECT_DIR / "catalogo.cat", pdf_dir / "catalogo.cat")
-
+    shutil.copy2(PROJECT_DIR / 'catalogo.cat', pdf_dir / 'catalogo.cat')
+    page = preparar_web(PROJECT_DIR, package, metadata)
+    print(f'[WEB] Página local preparada: {page}')
     publicar_web(pdf_dir)
-    print("CLASES: proceso terminado.")
+    print('CLASES: proceso terminado.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
