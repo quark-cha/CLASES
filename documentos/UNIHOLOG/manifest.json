@@ -1,0 +1,311 @@
+{
+  "author": "Víctor Estrada Díaz",
+  "license": "https://estradad.es/licencia.php",
+  "source_project": "UNIHOLOG",
+  "documents": [
+    {
+      "file": "ES_49_nexo_discreto_continuo.md",
+      "role": "Definición de clases de equivalencia y nexo discreto-continuo",
+      "sha256": "88b5004f9bccdbad3d7699eff30732e785a117fd9f5fa8e56a6ae66d5af89be8",
+      "bytes": 26158,
+      "references": [
+        {
+          "line": 1,
+          "text": "# ES_49: — El nexo discreto-continuo mediante clases de equivalencia"
+        },
+        {
+          "line": 11,
+          "text": "En ES_49 este nexo se expresa mediante familias o clases de equivalencia del tipo $U_e$, $U_\\pi$, $U_\\varphi$, $U_{ñ}$, $U_g$ y, en forma general, $U_{f_i}$."
+        },
+        {
+          "line": 51,
+          "text": "Sin embargo, si ambas construcciones determinan el mismo valor $\\alpha$, entonces ambas pertenecen a una misma clase respecto de su valor."
+        },
+        {
+          "line": 61,
+          "text": "Antes de definir las clases $U_\\alpha$, conviene separar tres niveles."
+        },
+        {
+          "line": 310,
+          "text": "En consecuencia, $A_N$ y $A_R$ pertenecen a la misma clase $U_\\alpha$."
+        },
+        {
+          "line": 473,
+          "text": "### 6.4 Clase $U_e$"
+        },
+        {
+          "line": 512,
+          "text": "Por tanto, pertenecen a la misma clase $U_e$."
+        },
+        {
+          "line": 659,
+          "text": "### 7.3 Clase $U_\\pi$"
+        },
+        {
+          "line": 716,
+          "text": "Por tanto, todas pertenecen a la misma clase de equivalencia."
+        },
+        {
+          "line": 911,
+          "text": "No es correcto afirmar sin condiciones que todas las expresiones con el símbolo $g$ pertenecen a la misma clase."
+        },
+        {
+          "line": 1009,
+          "text": "## 12. Clases exactas y clases límite"
+        },
+        {
+          "line": 1097,
+          "text": "Si se trabaja con funciones definidas casi en todas partes, distribuciones, clases de equivalencia de funciones o dominios restringidos, debe declararse el criterio de igualdad correspondiente."
+        },
+        {
+          "line": 1129,
+          "text": "Por tanto, pertenecen a una misma clase $U_f$."
+        },
+        {
+          "line": 1139,
+          "text": "entonces $F$ y $G$ pertenecen a la misma clase de equivalencia funcional."
+        },
+        {
+          "line": 1175,
+          "text": "Dos expresiones pueden pertenecer a la misma clase $U_\\alpha$ sin ser el mismo procedimiento."
+        },
+        {
+          "line": 1261,
+          "text": "La clase $U_\\alpha$ reúne las expresiones que determinan ese mismo valor."
+        },
+        {
+          "line": 1310,
+          "text": "6. clase de equivalencia;"
+        }
+      ]
+    },
+    {
+      "file": "ES_50_primalidad_estructural_U.md",
+      "role": "Clases U_c y dependencia estructural",
+      "sha256": "1e7130f400375d704d407b5e9494c6e5d4db2ea9f7993b7a864f1c7d0fbf8033",
+      "bytes": 11268,
+      "references": [
+        {
+          "line": 1,
+          "text": "# ES_50: — Primalidad estructural de las clases $U_c$ y el grado de $ñ$"
+        },
+        {
+          "line": 8,
+          "text": "En ES_49 se introdujo la idea de una clase $U_c$ como el conjunto de expresiones que determinan una misma constante $c$."
+        },
+        {
+          "line": 10,
+          "text": "Este documento continúa esa construcción y plantea una pregunta más profunda: si una constante queda representada por una clase $U_c$, ¿puede dicha clase considerarse primaria, o depende estructuralmente de otras clases?"
+        },
+        {
+          "line": 24,
+          "text": "su sentido no procede de $G$, sino de una relación geométrica previa. Por ello, la cuestión no es si $ñ$ puede escribirse usando $l_p$, sino si $U_{ñ}$ es una clase prima o una clase compuesta."
+        },
+        {
+          "line": 36,
+          "text": "Dos expresiones $A$ y $B$ pertenecen a la misma clase $U_c$ si ambas determinan el mismo valor:"
+        },
+        {
+          "line": 44,
+          "text": "Esta definición no identifica los procedimientos entre sí. Una expresión algebraica exacta, una sucesión, una integral, una derivada o una fracción continua pueden pertenecer a la misma clase si determinan el mismo valor."
+        },
+        {
+          "line": 62,
+          "text": "No todas las expresiones de una clase $U_c$ tienen el mismo valor estructural."
+        },
+        {
+          "line": 100,
+          "text": "## 3. Generación entre clases"
+        },
+        {
+          "line": 102,
+          "text": "Sea $\\mathcal B$ una familia de clases:"
+        },
+        {
+          "line": 120,
+          "text": "Aquí $\\operatorname{Gen}(\\mathcal B)$ representa el conjunto de clases obtenibles a partir de $\\mathcal B$ mediante operaciones admitidas."
+        },
+        {
+          "line": 154,
+          "text": "La analogía con los números primos aparece cuando preguntamos si una clase puede obtenerse a partir de otras."
+        },
+        {
+          "line": 158,
+          "text": "De modo análogo, una clase $U_c$ puede llamarse estructuralmente prima si no se obtiene como combinación no trivial de otras clases independientes."
+        },
+        {
+          "line": 174,
+          "text": "Una clase prima puede contener muchas expresiones:"
+        },
+        {
+          "line": 180,
+          "text": "Lo que se niega no es la multiplicidad interna de expresiones, sino la dependencia externa respecto de otras clases."
+        },
+        {
+          "line": 204,
+          "text": "Esto muestra que una clase puede ser estructuralmente prima y, al mismo tiempo, admitir desarrollos internos infinitos."
+        },
+        {
+          "line": 208,
+          "text": "Solo excluye la dependencia generativa no trivial respecto de otras clases."
+        },
+        {
+          "line": 212,
+          "text": "Definimos el orden estructural de dependencia de una clase $U_c$ como:"
+        },
+        {
+          "line": 218,
+          "text": "Informalmente, $\\operatorname{osd}(U_c)$ mide el número mínimo de clases necesarias para determinar $U_c$ mediante una relación estructural cerrada."
+        },
+        {
+          "line": 232,
+          "text": "donde la relación $R$ debe ser no trivial y no debe poder reducirse eliminando una de las clases participantes."
+        },
+        {
+          "line": 240,
+          "text": "entonces $U_c$ se comporta como una clase primaria."
+        },
+        {
+          "line": 248,
+          "text": "entonces $U_c$ aparece como parte de una relación mínima con otras clases."
+        },
+        {
+          "line": 258,
+          "text": "Esta relación conecta las clases:"
+        },
+        {
+          "line": 272,
+          "text": "Lo que muestra es que existe una relación estructural cerrada en la que estas clases aparecen simultáneamente."
+        },
+        {
+          "line": 290,
+          "text": "Por tanto, Euler no elimina la independencia de $e$, $\\pi$ o $i$. Muestra una relación mínima donde ninguna de esas clases puede retirarse sin cambiar la estructura."
+        },
+        {
+          "line": 294,
+          "text": "Dos clases pueden ser independientes y, aun así, estar relacionadas."
+        },
+        {
+          "line": 296,
+          "text": "La independencia generativa afirma que una clase no se obtiene desde otra mediante las reglas admitidas:"
+        },
+        {
+          "line": 320,
+          "text": "La identidad de Euler es precisamente un ejemplo de relación estructural profunda entre clases que no se reducen de manera trivial unas a otras."
+        },
+        {
+          "line": 446,
+          "text": "entonces $U_{ñ}$ sería una clase primaria."
+        },
+        {
+          "line": 448,
+          "text": "En ese caso, $ñ$ sería un valor geométrico que no depende de otras clases para quedar determinado."
+        },
+        {
+          "line": 493,
+          "text": "ES_49 permitió definir clases de expresiones $U_c$."
+        },
+        {
+          "line": 498,
+          "text": "\\text{¿qué clases son estructuralmente primas?}"
+        },
+        {
+          "line": 501,
+          "text": "La identidad de Euler muestra que varias clases pueden estar relacionadas en una estructura mínima sin reducirse trivialmente unas a otras."
+        },
+        {
+          "line": 517,
+          "text": "En ambos casos, $G$ queda situado como una clase derivada respecto de $ñ$, no como su fundamento."
+        }
+      ]
+    },
+    {
+      "file": "ES_51_grado_de_ñ_y_no_circularidad.md",
+      "role": "Grado estructural y no circularidad",
+      "sha256": "9474ebeaf004e2e6a3589925d5ae71eec8b287e21c021726536ed68a9fe6c2d9",
+      "bytes": 8002,
+      "references": [
+        {
+          "line": 8,
+          "text": "En ES_49 se introdujeron las clases $U_c$ como familias de expresiones que determinan una misma constante."
+        },
+        {
+          "line": 10,
+          "text": "En ES_50 se planteó la primalidad estructural de dichas clases y el orden estructural de dependencia:"
+        },
+        {
+          "line": 38,
+          "text": "Si $\\operatorname{osd}(U_{ñ})>1$, entonces deberá existir una relación matemática o geométrica mínima que determine $ñ$ a partir de otras clases."
+        },
+        {
+          "line": 126,
+          "text": "no es una clase primaria respecto de $U_{ñ}$."
+        },
+        {
+          "line": 128,
+          "text": "Es una clase derivada."
+        },
+        {
+          "line": 226,
+          "text": "En ese caso, $ñ$ sería una clase geométrica primaria."
+        },
+        {
+          "line": 234,
+          "text": "En ese caso, $ñ$ no sería primaria aislada, sino el resultado de una relación mínima entre varias clases."
+        },
+        {
+          "line": 248,
+          "text": "La clase:"
+        },
+        {
+          "line": 254,
+          "text": "sería análoga, en sentido estructural, a una clase prima."
+        },
+        {
+          "line": 260,
+          "text": "Lo que significa es que ninguna de esas expresiones revela una dependencia generativa más básica respecto de otras clases."
+        },
+        {
+          "line": 276,
+          "text": "tal que ninguna de las clases participantes pueda eliminarse sin destruir la relación."
+        },
+        {
+          "line": 284,
+          "text": "sería una clase compuesta."
+        },
+        {
+          "line": 308,
+          "text": "Lo que muestra es que existen relaciones cerradas donde varias clases aparecen de manera necesaria."
+        },
+        {
+          "line": 415,
+          "text": "Si el grado es uno, $ñ$ será una clase geométrica prima."
+        }
+      ]
+    },
+    {
+      "file": "ES_46_RV6.md",
+      "role": "Contexto: clases de onda y transporte entre marcos",
+      "sha256": "658438ebb7686582224ed865ad561661c0e03e58974c14b31f8389ccfa9d90f1",
+      "bytes": 41601,
+      "references": [
+        {
+          "line": 590,
+          "text": "No existe una cuarta clase de onda respecto del cierre que no haya sido considerada."
+        },
+        {
+          "line": 1505,
+          "text": "\\text{clase estable},"
+        },
+        {
+          "line": 1513,
+          "text": "\\text{clase no estable}"
+        },
+        {
+          "line": 1923,
+          "text": "Sin embargo, dentro del transporte establecido, la identidad de cero ya dada en $U_{\\rm Rim}$ debe localizarse en la clase transversal compatible con el estado estable de $U_{\\rm VED}$, porque $U_{\\rm VED}$ ha demostrado exhaustivamente que la estabilidad sólo ocurre en"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+# CLASES
+
+Proyecto de Víctor Estrada Díaz, basado en las clases de UNIHOLOG, para estudiar transformaciones, invariantes y relaciones entre constantes.
+
+## Artículo inicial
+
+[Ramanujan, π y la estructura que relaciona las constantes](ES_01_Ramanujan_y_las_constantes.md).
+
+Texto completo recuperado de la conversación «Exactitud fórmula Ramanujan pi», con las modificaciones acordadas para CLASES. Fórmulas en Unicode, sin LaTeX, para preparar el artículo de LinkedIn. Se conserva el contenido, las referencias y la licencia del borrador original; esta recuperación no constituye una revisión científica nueva.
+
+## Publicación
+
+El proyecto utiliza el sistema compartido PUBLICAR/PackPublica. Desde esta carpeta:
+
+```text
+python publica.py
+```
+
+Genera los derivados locales y el catálogo. Para subirlos a la web del autor mediante la configuración existente de PUBLICAR:
+
+```text
+python publica.py --web
+```
+
+Destino configurado: /estradad.es/teorias/pdf/CLASES. La creación del proyecto no implica que ya esté publicado.
+
+Los artículos usan nombres ES_01_…, ES_02_…; las traducciones conservan el número y cambian el prefijo de idioma. Este README se excluye de la publicación.
+
+## Desarrollo previsto
+
+Precisar las clases de UNIHOLOG que se estudiarán, sus elementos y operaciones; definir las transformaciones admisibles y los invariantes; comprobar qué relaciones pueden deducirse sin introducir de antemano las constantes buscadas.
+
+## Procedencia
+
+Conversación original: «Exactitud fórmula Ramanujan pi».
+Identificador: 6adcd9c9-c950-83eb-80b0-2aaa0a5bb538.
+Recuperación local: 25 de octubre de 2026.
+
+
+## Fuentes actuales recuperadas de UNIHOLOG
+
+[Índice y procedencia de los documentos](FUENTES_UNIHOLOG.md).
+Las copias de consulta están en `documentos/UNIHOLOG`. Se conservan íntegros
+los españoles actuales y sus originales permanecen en el proyecto vecino.
+ES_49, ES_50 y ES_51 desarrollan las clases; ES_46_RV6 aporta contexto sobre
+clases de onda y transporte. Se excluye el total para no duplicar sus documentos.
+
+## Herramientas en src
+
+[Uso y alcance de las herramientas](src/README.md).
+
+```powershell
+python src/fuentes.py verificar
+python src/ramanujan.py --terminos 3 --precision 80
+python -m unittest discover -s tests -v
+```
+
+La sincronización con `python src/fuentes.py sincronizar` compara huellas y
+conserva el origen. No toma material de archivos históricos ni sobrescribe
+una copia local modificada sin resolver la discrepancia.
+
+## Portada
+
+![CLASES: exploración de un mundo matemático y montañas fractales](img/CLASES_mundo_matematico.png)
+
+Concepto visual: Víctor Estrada Díaz. Portada generada por IA a partir de ese concepto.
+
+## Licencias
+
+[Autoría, licencias y condiciones de uso](LICENCIAS.md).

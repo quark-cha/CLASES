@@ -1,0 +1,11 @@
+{
+  "author": "Víctor Estrada Díaz",
+  "license": "https://estradad.es/licencia.php",
+  "source_project": "UNIHOLOG",
+  "documents": [
+    {"pattern": "ES_49_nexo_discreto_continuo.md", "role": "Definición de clases de equivalencia y nexo discreto-continuo"},
+    {"pattern": "ES_50_primalidad_estructural_U.md", "role": "Clases U_c y dependencia estructural"},
+    {"pattern": "ES_51_grado_de_*_y_no_circularidad.md", "role": "Grado estructural y no circularidad"},
+    {"pattern": "ES_46_RV6.md", "role": "Contexto: clases de onda y transporte entre marcos"}
+  ]
+}
